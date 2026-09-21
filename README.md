@@ -121,10 +121,14 @@ animal.comer(); // OK
      calcular.calcular(bono)
 
     ```
+
+
 # SESION 2
+
  # Patron singlenton
  consiste en una sola instancia de clase
  ejemplo:
+
  ```  java
  class ConexionDB {
     private ConexionDB instance;
