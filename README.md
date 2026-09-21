@@ -151,16 +151,136 @@ class ConexionDB {
 consiste en clonar una clase ya existente evitando usar el new  para esto se usa la interface Cloneable
 ejemplo:
  ```  java
+class Persona implements Cloneable {
+    String nombre;
 
- ``` 
-class Persona implements Cloneable{
-  string nombre;
-public Persona clonable(){
-   return new Persona(this.nombre)
+    public Persona(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // Sobrescribimos el método clone de Object
+    @Override
+    public Persona clone() {
+        try {
+            return (Persona) super.clone(); // Realiza una copia superficial (shallow copy)
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(); // No debería ocurrir ya que implementamos Cloneable
+        }
+    }
 }
 
-}
+ ```
+
+ ```  java
+```
+
 # Patron Factory Metho
+consiste en crear objetos sin usar la palabra new
+ejemplo:
+  ```  java
+ interface Transporte {
+    void entregar();
+}
+
+class Auto implements Transporte {
+    public void entregar() {
+        System.out.println("Entregado en auto");
+    }
+}
+
+class Moto implements Transporte {
+    public void entregar() {
+        System.out.println("Entregado en moto");
+    }
+}
+
+class TransporteFactory {
+    public Transporte getTransporte(String tipo) {
+        if (tipo != null && tipo.equalsIgnoreCase("Auto")) {
+            return new Auto();
+        } else {
+            return new Moto();
+        }
+    }
+}
+```
+# patron abstract factory
+ consiste en crear una familia de   objetos
+  con relaciones
+  ejemplo:
+   ```  java
+// Interfaces de los productos
+interface Silla {
+    void crear();
+}
+
+interface Mesa {
+    void crear();
+}
+
+// Productos concretos de la familia "Moderna"
+class SillaModerna implements Silla {
+    @Override
+    public void crear() {
+        System.out.println("Creando silla moderna");
+    }
+}
+
+class MesaModerna implements Mesa {
+    @Override
+    public void crear() {
+        System.out.println("Creando mesa moderna");
+    }
+}
+
+// Productos concretos de la familia "Clásica"
+class SillaClasica implements Silla {
+    @Override
+    public void crear() {
+        System.out.println("Creando silla clásica");
+    }
+}
+
+class MesaClasica implements Mesa {
+    @Override
+    public void crear() {
+        System.out.println("Creando mesa clásica");
+    }
+}
+
+// Interfaz de la Abstract Factory
+interface FabricaMuebles {
+    Silla crearSilla();
+    Mesa crearMesa(); // Nota los paréntesis y el tipo de retorno
+}
+
+// Fábrica concreta para crear objetos modernos relacionados
+class FabricaModerna implements FabricaMuebles {
+    @Override
+    public Silla crearSilla() {
+        return new SillaModerna();
+    }
+    
+    @Override
+    public Mesa crearMesa() {
+        return new MesaModerna();
+    }
+}
+
+// Fábrica concreta para crear objetos clásicos relacionados
+class FabricaClasica implements FabricaMuebles {
+    @Override
+    public Silla crearSilla() {
+        return new SillaClasica();
+    }
+    
+    @Override
+    public Mesa crearMesa() {
+        return new MesaClasica();
+    }
+}
+```
+
 
 
 
