@@ -171,8 +171,7 @@ class Persona implements Cloneable {
 
  ```
 
- ```  java
-```
+
 
 # Patron Factory Metho
 consiste en crear objetos sin usar la palabra new
@@ -277,6 +276,77 @@ class FabricaClasica implements FabricaMuebles {
     @Override
     public Mesa crearMesa() {
         return new MesaClasica();
+    }
+}
+
+public class Main {
+    public static void Main(String[] args) {
+        // 1. Decidimos qué familia de muebles queremos (podría ser FabricaModerna o FabricaClasica)
+        FabricaMuebles fabrica = new FabricaModerna();
+        Silla silla = fabrica.crearSilla();
+        Mesa mesa = fabrica.crearMesa();     
+        silla.crear(); 
+        mesa.crear();  
+   
+        
+        // Si cambiamos de opinión y queremos muebles clásicos, solo cambiamos la fábrica:
+        FabricaMuebles fabricaClasica = new FabricaClasica();
+        Silla sillaClasica = fabricaClasica.crearSilla();
+        Mesa mesaClasica = fabricaClasica.crearMesa();
+        
+        sillaClasica.crear(); 
+        mesaClasica.crear();  
+    }
+}
+```
+# Patron Builder
+consiste en creaar un objeto complejo  armarlo piesa por piesa
+
+ ```  java
+public class Main {
+    public static void main(String[] args) {
+        Computadora pc = new ComputadoraBuilder()
+                .setCPU("Intel i7")
+                .setDisco("512 GB SSD")
+                .setRAM("16 GB")
+                .build();
+
+        System.out.println(pc); // Imprimirá usando el toString()
+    }
+}
+
+class Computadora {
+    String ram;
+    String disco;
+    String cpu;
+
+    // Debe ser public porque sobrescribe un método de Object
+    @Override
+    public String toString() {
+        return "CPU: " + cpu + " | RAM: " + ram + " | Disco: " + disco;
+    }
+}
+
+class ComputadoraBuilder {
+    private Computadora comp = new Computadora();
+
+    public ComputadoraBuilder setCPU(String cpu) {
+        comp.cpu = cpu;
+        return this; // Retorna el builder para encadenar métodos
+    }
+
+    public ComputadoraBuilder setRAM(String ram) {
+        comp.ram = ram;
+        return this;
+    }
+
+    public ComputadoraBuilder setDisco(String disco) {
+        comp.disco = disco;
+        return this;
+    }
+
+    public Computadora build() {
+        return comp; // Devuelve el objeto ya construido
     }
 }
 ```
