@@ -120,31 +120,47 @@ animal.comer(); // OK
     CalcularBono calcular= new CalcualrBono();
      calcular.calcular(bono)
 
-    ```
-
+  ```
 
 # SESION 2
-
  # Patron singlenton
  consiste en una sola instancia de clase
  ejemplo:
 
  ```  java
- class ConexionDB {
-    private ConexionDB instance;
-     private ConexionDB(){ // para que no pueda   aser new fuera de la clase
-}
-public ConexionDB getInstance(){
-if(instance==null){
-   instance= new ConexionDB();
-}
-return instance;
-}
+class ConexionDB {
+    // 1. La instancia debe ser static para que pertenezca a la clase
+    private static ConexionDB instance;
+
+    // 2. El constructor es privado para evitar el 'new ConexionDB()' externo
+    private ConexionDB() {
+        // Inicialización de la conexión si es necesario
+    }
+
+    // 3. El método debe ser static para poder llamarlo sin instanciar la clase
+    public static ConexionDB getInstance() {
+        if (instance == null) {
+            instance = new ConexionDB();
+        }
+        return instance;
+    }
 }
  ``` 
 
 # Patron prototype
+consiste en clonar una clase ya existente evitando usar el new  para esto se usa la interface Cloneable
+ejemplo:
+ ```  java
+
+ ``` 
+class Persona implements Cloneable{
+  string nombre;
+public Persona clonable(){
+   return new Persona(this.nombre)
+}
+
+}
 # Patron Factory Metho
 
-#SES
+
 
