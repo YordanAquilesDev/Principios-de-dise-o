@@ -1,6 +1,6 @@
 # Principios-de-dise-o
 Curso de principios de diseño
-
+#SESION 1
 # SRP
 separacion de responsavilida unica
 ``` java
@@ -121,4 +121,26 @@ animal.comer(); // OK
      calcular.calcular(bono)
 
     ```
+# SESION 2
+ # Patron singlenton
+ consiste en una sola instancia de clase
+ ejemplo:
+ ```  java
+ class ConexionDB {
+    private ConexionDB instance;
+     private ConexionDB(){ // para que no pueda   aser new fuera de la clase
+}
+public ConexionDB getInstance(){
+if(instance==null){
+   instance= new ConexionDB();
+}
+return instance;
+}
+}
+ ``` 
+
+# Patron prototype
+# Patron Factory Metho
+
+#SES
 
