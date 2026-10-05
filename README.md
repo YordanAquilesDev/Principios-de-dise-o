@@ -299,10 +299,10 @@ public class Main {
     }
 }
 ```
-# Patron Builder
-consiste en creaar un objeto complejo  armarlo piesa por piesa
+# Patrón Builder
+Consiste en crear un objeto complejo armándolo pieza por pieza.
 
- ```  java
+```java
 public class Main {
     public static void main(String[] args) {
         Computadora pc = new ComputadoraBuilder()
@@ -351,6 +351,106 @@ class ComputadoraBuilder {
 }
 ```
 
+# Patrón Adapter
+Permite resolver problemas de desajustes de interfaces para que clases con interfaces incompatibles puedan trabajar juntas.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        ReproductorMultimedia reproductor = new AdaptadorMultimedia(new ReproductorMp4());
+        reproductor.reproducir("video.mp4");
+    }
+}
+
+// Interfaz esperada por el cliente
+interface ReproductorMultimedia {
+    void reproducir(String archivo);
+}
+
+// Clase existente con una interfaz incompatible
+class ReproductorMp4 {
+    void reproducirMp4(String archivo) {
+        System.out.println("Reproduciendo archivo MP4: " + archivo);
+    }
+}
+
+// El Adaptador implementa la interfaz y traduce la llamada
+class AdaptadorMultimedia implements ReproductorMultimedia {
+    private ReproductorMp4 reproductorMp4;
+
+    public AdaptadorMultimedia(ReproductorMp4 reproductorMp4) {
+        this.reproductorMp4 = reproductorMp4;
+    }
+
+    @Override
+    public void reproducir(String archivo) {
+        reproductorMp4.reproducirMp4(archivo);
+    }
+}
+```
+
+# Patrón Facade
+Permite resolver el problema de tener múltiples sistemas complejos o libres, agrupándolos y ofreciendo una interfaz unificada y simple en una sola clase.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        CineFacade cine = new CineFacade();
+        cine.verPelicula("Interstellar");
+    }
+}
+
+class Luces {
+    public void atenuar() {
+        System.out.println("Luces atenuadas al 10%.");
+    }
+}
+
+class Proyector {
+    public void encender() {
+        System.out.println("Proyector encendido.");
+    }
+    public void setPelicula(String pelicula) {
+        System.out.println("Cargando película: " + pelicula);
+    }
+}
+
+class Sonido {
+    public void activar() {
+        System.out.println("Sistema de sonido envolvente activado.");
+    }
+}
+
+// La Fachada agrupa y simplifica todos los subsistemas anteriores
+class CineFacade {
+    private Luces luces;
+    private Proyector proyector;
+    private Sonido sonido;
+
+    public CineFacade() {
+        this.luces = new Luces();
+        this.proyector = new Proyector();
+        this.sonido = new Sonido();
+    }
+
+    public void verPelicula(String pelicula) {
+        System.out.println("--- Preparando el cine en casa ---");
+        luces.atenuar();
+        proyector.encender();
+        proyector.setPelicula(pelicula);
+        sonido.activar();
+        System.out.println("¡Disfrute su función!\n");
+    }
+}
+```
+
+#Patron Decorator
+permite añadir responsabilidades a un objeto  como añadirle capas a un clase 
+ejemplo:
+``` java
+
+```
+#Patron Composable
 
 
 
