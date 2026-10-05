@@ -491,6 +491,57 @@ class Main {
 su obejtivo es tener una estructura en forma de arbol donde tanto los objetos simples  como los grupos  se traten de la misma manera
 ejemplo:
 ``` java
+ interface Empleado{
+   void mostrarDetalles();
+ }
 
+class Desarrollador implements Empleado{
+     private String nombre;
+     public Desarrollador(String nombre){
+        this.nombre=nombre;
+     }
+
+     void mostrarDetalles(){
+         System.out.println(" Desarrolador "+ nombre);
+     }
+}
+
+class Gerente implements Empleado{
+    private String nombre;
+    public Gerente(String nombre){
+   this.nombre=nombre;
+    }
+      void mostrarDetalles(){
+         System.out.println(" Desarrolador "+ nombre);
+     }
+}
+
+ class Departamento implements Empleado{
+    private List<Empleado> empleados= new ArrayList<>();
+
+    public void addEmpleado(Empleado e){
+        empleados.add(e);
+    }
+
+     void mostrarDetalles(){
+        empleados.ForEach(e->{
+           System.out.println(" Empleado "+ nombre);
+        })
+         
+     }
+ }
+ class Main{
+    main(){
+        Empleado dev1= new Desarrollador("Ana");
+         Empleado dev2= new Desarrollador("Juan");
+          Empleado gerente= new Desarrollador("Marta");
+          Departamento  depto= new Departamento();
+          depto.addEmpleado(dev1)
+          depto.addEmpleado(dev2)
+          depto.addEmpleado(gerente)
+          depto.mostrarDetalles();
+         
+    }
+ }
 ```
 
