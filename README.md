@@ -448,10 +448,49 @@ class CineFacade {
 permite añadir responsabilidades a un objeto  como añadirle capas a un clase 
 ejemplo:
 ``` java
+public interface Notificador{
+    void enviar(String mensaje);
+}
 
+class NofificadorEmail implements Notificador{
+   void enviar(String mensaje){
+       System.out.println("enviado email"+ mensaje);
+   }
+}
+
+abstract class NotificatorDecorator implements Notificador{
+   protected Notificador wrapper;
+   public NotificatorDecorator(Notificator n){
+    this.wrapper=n;
+   }
+
+   public void enviar(String mensaje){
+      wrapper.enviar(mensaje);
+   }
+}
+
+class NotificadorSMS extends NotificadorDecorator{
+    public NotificadordSMS(Notificador n){
+        super(n);
+    }
+    public void enviar(String mensaje){
+        super.enviar(mensaje)
+        System.out.prinyl("enviando SMS"+ mensaje)
+    }
+}
+class Main {
+    static main(String args[]){
+        Notificador notificar= new NotificadorSMS(new NotificadorEmail());
+        notificar.enviar("Examen el lunes)
+
+    }
+}
 
 ```
 #Patron Composable
+su obejtivo es tener una estructura en forma de arbol donde tanto los objetos simples  como los grupos  se traten de la misma manera
+ejemplo:
+``` java
 
-
+```
 
