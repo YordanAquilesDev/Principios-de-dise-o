@@ -449,6 +449,7 @@ permite añadir responsabilidades a un objeto  como añadirle capas a un clase
 ejemplo:
 ``` java
 
+
 ```
 #Patron Composable
 
