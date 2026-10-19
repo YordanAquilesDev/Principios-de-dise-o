@@ -544,4 +544,130 @@ class Gerente implements Empleado{
     }
  }
 ```
+# Patron Proxy
+consiste en dar oermiso a siertos obejtos
+ejemplo:
+``` java
+ 
+public interface Servicio {
+    void solicitar();
+}
+
+class ServicioReal implements Servicio{
+
+    @Override
+    public void solicitar() {     
+        System.out.println("Ejecutando el servcio real...");
+    }
+    
+}
+
+class ProxyServicio implements Servicio{
+    private ServicioReal servicioReal;
+  private boolean acceso;
+    public ProxyServicio(boolean acceso){
+        this.acceso=acceso;
+    }
+    @Override
+    public void solicitar() {
+        if(acceso){
+            if(servicioReal==null){
+                servicioReal= new ServicioReal();
+            }
+            servicioReal.solicitar();
+        }else{
+            System.out.println("Acceso denegado; no tiene permiso");
+        }
+     }
+    
+}
+      
+class MainProxy{
+     public static void main(String[] args) {
+        Servicio proxy= new ProxyServicio(true);
+        proxy.solicitar();
+         Servicio proxy2= new ProxyServicio(false);
+         proxy2.solicitar();
+        
+    }
+}
+``` 
+# Patron Bridge
+ un solo  clase puedo  usarse en muchas mas sin   tener que  acoplarmas a   otras clases
+ ejemplo:
+ ```  java
+
+public interface Dispositivo {
+    void encender();
+    void apagar();
+}
+
+class TV implements Dispositivo {
+    @Override
+    public void encender() {
+          System.out.println("");  
+    }
+    @Override
+    public void apagar() {
+          System.out.println("");  
+    }
+
+}
+
+class Radio implements Dispositivo {
+    @Override
+    public void encender() {
+        System.out.println("");
+      }
+    @Override
+    public void apagar() {
+     System.out.println("");  
+    }
+
+}
+
+abstract class ControlRemoto {
+
+    protected Dispositivo dispositivo;
+
+    public ControlRemoto(Dispositivo d) {
+        this.dispositivo = d;
+
+    }
+    abstract void encender();
+    abstract void apagar();
+}
+
+class ControlBasico extends ControlRemoto{
+        private Dispositivo dispositivo;
+    public ControlBasico(Dispositivo d){
+        super(d);
+    }
+
+    @Override
+    void encender() {
+        dispositivo.encender();
+     }
+
+    @Override
+    void apagar() {
+        dispositivo.apagar();
+    }
+    
+}
+
+class MainBridge{
+     public static void main(String[] args) {
+        ControlRemoto controlTV= new ControlBasico(new TV());
+        controlTV.encender();
+        controlTV.apagar();
+        
+        ControlRemoto controlRadio= new ControlBasico(new Radio());
+        controlRadio.encender();
+        controlRadio.apagar();
+    }
+}
+ ``` 
+ 
+
 
