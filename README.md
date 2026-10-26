@@ -669,5 +669,125 @@ class MainBridge{
 }
  ``` 
  
+# PATRONES DE COMPORTAMIENTO
+## Patron State
+este patron evita  muchos if anidados y switch
+ ```  java
 
+/**
+ *
+ * @author Administrador
+ */
+public interface Estado {
+    void manejar();
+}
+
+class EstadoEncendido implements Estado{
+
+    @Override
+    public void manejar() {
+        System.out.println("Encendido");
+      }
+     
+ }
+
+class EstadoApagado implements Estado{
+
+    @Override
+    public void manejar() {
+        System.out.println("Apagodo");
+     }
+    
+}
+
+class Dispositivo{
+    private Estado estado;
+    public void ejecutar(){
+        System.out.println("Ejeciatando estado");
+    }
+    public void setEstado(Estado e){
+        estado= e;
+        System.out.print("el dispositivo esta");
+         e.manejar();
+    }
+}
+class MainState{
+    public static void main(String[] args) {
+        Dispositivo dispositivo= new Dispositivo();
+         dispositivo.setEstado(new  EstadoEncendido());
+         dispositivo.ejecutar();
+         
+          dispositivo.setEstado(new  EstadoApagado());
+         dispositivo.ejecutar();
+         
+    }
+}
+
+```  
+## Patron Observert
+```  java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package observer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Administrador
+ */
+public interface Observador {
+    void actualizar(String message);
+    
+}
+class Canal{
+    List<Observador> observador= new ArrayList<>();
+    private String  mensaje;
+    public void add(Observador o){
+        observador.add(o);
+    }
+    public void delete(Observador o){
+        observador.remove(o);
+        
+    }
+    
+    public void subirNuevoVieo(String mensaje){
+        notificar();
+    }
+
+    private void notificar() {
+        for(Observador o: observador){
+           o.actualizar(mensaje);
+        }
+        
+     }
+    
+    
+}
+
+class Suscriptor  implements Observador{
+    public Suscriptor(String nombre){
+        this.nombre=nombre;
+    }
+ private  String nombre;
+    @Override
+    public void actualizar(String message) {
+        System.out.println(nombre+""+"fue notificado"+message);
+    }
+    
+    
+}
+
+class MainObserver{
+    public static void main(String[] args) {
+        Canal canal= new Canal();
+        canal.add(new Suscriptor("Juan"));
+        canal.add(new Suscriptor("Alberto"));
+        canal.subirNuevoVieo("QUe pasa cabron");
+    }
+}
+``` 
 
